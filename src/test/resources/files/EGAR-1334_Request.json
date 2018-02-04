@@ -1,0 +1,66 @@
+{
+  "gar_uuid": "87e895a6-283c-4c36-88d0-7bf993b8601b",
+  "aircraft": {
+    "registration": "abc123",
+    "type": "helicopter",
+    "base": "EGLL",
+    "taxesPaid": false
+  },
+  "location": [
+    {
+      "IATA":null,
+      "point":{
+        "latitude":null,
+        "longitude":null
+      },
+      "leg_num": 0,
+      "leg_count": 0,
+      "datetime": "2018-01-01T01:10:00Z",
+      "ICAO": "EGLL"
+    },
+    {
+      "IATA":null,
+      "point":{
+        "latitude":null,
+        "longitude":null
+      },
+      "leg_num": 0,
+      "leg_count": 0,
+      "datetime": "2018-01-10T01:01:00Z",
+      "ICAO": "EGAR"
+    }
+  ],
+  "people": {
+    "captain": {
+      "type": "CAPTAIN",
+      "uuid": "3f1e4c77-e605-45d2-ab83-7cba9160b382",
+      "details": {
+        "gender": "FEMALE",
+        "address": "76 Hammersmith Rd",
+        "dob": "2017-12-14",
+        "place": "London",
+        "nationality": "GB",
+        "given_name": "test1",
+        "family_name": "captain",
+        "document_type": "passport",
+        "document_no": "123456",
+        "document_expiryDate": "2017-07-14",
+        "document_issuingCountry": "GB"
+      }
+    },
+    "crew": [
+    ],
+    "passengers": [
+    ]
+  },
+  "files": null,
+  "attributes": {
+    "hazardous": false,
+    "responsible_person": {
+      "type": "CAPTAIN",
+      "name": null,
+      "contact_number": null,
+      "address": null
+    }
+  }
+}

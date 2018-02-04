@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="page/layout :: page">
+    <head>
+        <title>Introduction</title>
+        <sub-title>What is the Project for?</sub-title>
+    </head>
+    <body th:fragment="content">
+		<p>@project.description@</p>
+    	<p>Full details of the <a href="api.html"><strong>API provided by this application</strong></a> can be seen via an embedded <a href="http://swagger.io/" target="_blank">Swagger</a> page.</p>
+		<p>Full description TBC.</p>
+    	
+    	
+    </body>
+</html>

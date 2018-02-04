@@ -1,0 +1,173 @@
+server:
+  port: ${PORT:8085}
+
+### ------------------------------------------------------------------------------------
+# SECURITY
+### ------------------------------------------------------------------------------------
+
+# If you are deploying applications behind a firewall, you may prefer that all your actuator endpoints can be accessed without requiring authentication.
+endpoints:
+  health:
+    sensitive: true # Mark if the endpoint exposes sensitive information.
+management:
+  security:
+    enabled: false
+  health:
+    db:
+      enabled: true # Enable database health check.
+    defaults:
+      enabled: true # Enable default health indicators.
+    diskspace:
+      enabled: true # Enable disk space health check.
+
+spring:
+  mvc:
+#   "Spring MVC does not handle RequestMethod.OPTIONS"
+#   For security reasons, browsers prohibit AJAX calls to resources residing outside the current origin. For example, 
+#   as you’re checking your bank account in one tab, you could have the evil.com website in another tab. 
+#   The scripts from evil.com shouldn’t be able to make AJAX requests to your bank API (withdrawing money from your
+#   account!) using your credentials.
+#   Cross-origin resource sharing (CORS) is a W3C specification implemented by most browsers that allows you to specify
+#   in a flexible way what kind of cross domain requests are authorized, instead of using some less secured and less
+#   powerful hacks like IFrame or JSONP.
+#
+    dispatch-options-request: true
+
+  thymeleaf:
+    # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
+    # In this case LEGACYHTML5 & not HTML5(XHTML) which is standard.
+    # This requires NekoHTML version 1.9.15 or higher in the classpath.
+    # As it is performing a conversion to XML from legacy HTML.
+    mode: HTML5 
+    
+    # Don't cache the templates while working.
+    # Not good for production.
+    cache: false
+
+  cloud:
+    config:
+      discovery:
+        # To deliberatly ignore the config-server set this to false. 
+        enabled: false
+        
+      # If you expect that the config server may occasionally be unavailable when your app starts, you can ask it to keep trying after a failure.     
+      # The default behaviour is to retry 6 times with an initial backoff interval of 1000ms and an exponential multiplier of 1.1 for subsequent backoffs.
+      # Config can be found at https://github.com/spring-cloud/spring-cloud-config/blob/master/spring-cloud-config-client/src/main/java/org/springframework/cloud/config/client/RetryProperties.java
+      failFast: true  
+spring.jackson.serialization.write_dates_as_timestamps: false    
+---
+
+spring:
+  profiles: localtest
+  datasource:
+    url: jdbc:postgresql://localhost/dev_gar_api
+    platform: postgres
+    username: postgres
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: postgres
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      javax:
+        persistence:
+          schema-generation: none
+    generate-ddl: true
+
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:postgresql://localhost/dev_gar_api
+    platform: postgres
+    username: postgres
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: postgres
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      javax:
+        persistence:
+          schema-generation: none
+#    generate-ddl: true
+
+---
+## Use H2 during development
+spring:
+  profiles: h2
+  datasource:
+    url: jdbc:h2:mem:example-app;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    platform: h2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+
+flyway:
+  enabled: false
+
+---
+
+##
+## The 'prod' profile.
+##
+## Use H2 during sql generation
+##
+spring:
+  profiles: prod
+  datasource:
+    url: ${prod.database.url}
+    platform: postgres
+    username: ${prod.database.username}
+    password: ${prod.database.password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: postgres
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: submission
+      javax:
+        persistence:
+          schema-generation: none
+
+info:
+  app:
+    service: ${project.groupId}.${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: localhost
+    metadata-map:
+      instanceId: ${spring.application.name}:${server.port}

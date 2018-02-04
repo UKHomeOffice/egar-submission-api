@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <body>
+  
+    <header th:fragment="copy" class="page-header">
+         <!-- HEADER: /templates/page/header.html -->
+        <div class="row">
+          <div class="col-lg-8 col-md-7 col-sm-6">
+            <h1>eGAR @project.artifactId@ Microservice</h1>
+            <h2 th:include="this :: title"/>
+            <p class="lead" th:include="this :: sub-title"/>
+<!--             <ul class="list-unstyled"> -->
+<!--               <li><a href=".">Home</a></li> -->
+<!--             </ul> -->
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-6">
+<!-- 	          Brought to you by...
+            <div class="sponsor">
+             
+            </div> -->
+          </div>
+        </div>
+         <!-- HEADER:end-->
+      </header>
+
+  
+  </body>
+  
+</html>

@@ -1,0 +1,124 @@
+{
+  "aircraft":{
+    "type":"helicopter",
+    "registration":"TEST12345",
+    "base":"EGAA",
+    "taxesPaid":true
+  },
+  "gar_uuid":"cfdcc109-d2d3-4c0c-812b-2b99dbe89d71",
+  "location":[
+    {
+      "leg_num":null,
+      "leg_count":0,
+      "datetime":"2017-12-14T16:00:15.42z",
+      "ICAO":"EGAA"
+    },
+    {
+      "leg_num":null,
+      "leg_count":1,
+      "datetime":"2017-12-14T16:00:15.436z",
+      "IATA":"BRS"
+    }
+  ],
+  "people":{
+    "captain":{
+      "type":"CAPTAIN",
+      "uuid":"3f1e4c77-e605-45d2-ab83-7cba9160b382",
+      "details":{
+        "gender":"FEMALE",
+        "address":"76 Hammersmith Rd",
+        "dob":"2017-12-14",
+        "place":"London",
+        "nationality":"GB",
+        "given_name":"test1",
+        "family_name":"captain",
+        "document_type":"passport",
+        "document_no":"123456",
+        "document_expiryDate":"2017-07-14",
+        "document_issuingCountry":"GB"
+      }
+    },
+    "crew":[
+      {
+        "type":"CREW",
+        "uuid":"3a8d0a38-9207-48ef-a185-d589a9757457",
+        "details":{
+          "gender":"MALE",
+          "address":"77 Hammersmith Rd",
+          "dob":"2017-12-14",
+          "place":"London",
+          "nationality":"NL",
+          "given_name":"test2",
+          "family_name":"crew1",
+          "document_type":"passport",
+          "document_no":"abc123",
+          "document_expiryDate":"2017-08-14",
+          "document_issuingCountry":"NL"
+        }
+      },
+      {
+        "type":"CREW",
+        "uuid":"1e28fd62-5519-45bb-8000-31dda017e354",
+        "details":{
+          "gender":"UNSPECIFIED",
+          "address":"78 Hammersmith Rd",
+          "dob":"2017-12-14",
+          "place":"London",
+          "nationality":"FR",
+          "given_name":"test3",
+          "family_name":"crew2",
+          "document_type":"identity",
+          "document_no":"kasasa",
+          "document_expiryDate":"2017-09-14",
+          "document_issuingCountry":"FR"
+        }
+      }
+    ],
+    "passengers":[
+      {
+        "type":"PASSENGER",
+        "uuid":"70b8282f-b562-4054-8294-7d1ccd897aee",
+        "details":{
+          "gender":"FEMALE",
+          "address":"79 Hammersmith Rd",
+          "dob":"2017-12-14",
+          "place":"London",
+          "nationality":"DE",
+          "given_name":"test4",
+          "family_name":"pass1",
+          "document_type":"unspecified",
+          "document_no":"asdadasdgg",
+          "document_expiryDate":"2017-10-14",
+          "document_issuingCountry":"DE"
+        }
+      },
+      {
+        "type":"PASSENGER",
+        "uuid":"b3443a62-f5de-4666-9464-e35e7b74ed02",
+        "details":{
+          "gender":"FEMALE",
+          "address":"80 Hammersmith Rd",
+          "dob":"2017-12-14",
+          "place":"London",
+          "nationality":"ES",
+          "given_name":"test5",
+          "family_name":"pass2",
+          "document_type":"passport",
+          "document_no":"asdasdsa",
+          "document_expiryDate":"2017-11-14",
+          "document_issuingCountry":"ES"
+        }
+      }
+    ]
+  },
+  "files":null,
+  "attributes":{
+    "hazardous": true,
+    "responsible_person": {
+      "contact_number": "102930211",
+      "name": "Responsible person",
+      "address": "abc123",
+      "type": "OTHER"
+    }
+  }
+}

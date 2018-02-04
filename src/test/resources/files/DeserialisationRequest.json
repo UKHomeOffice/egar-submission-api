@@ -1,0 +1,91 @@
+{
+  "aircraft":{
+    "type":"helicopter",
+    "registration":"TEST12345",
+    "base":"0AK1",
+    "taxesPaid":true
+  },
+  "gar_uuid":"cfdcc109-d2d3-4c0c-812b-2b99dbe89d71",
+  "user_uuid":"f1bed660-deab-418a-8c3b-244929298be9",
+  "location":[
+    {
+      "leg_num":0,
+      "leg_count":2,
+      "datetime":"2017-12-14T16:10:15.42Z",
+      "ICAO":"0AK0"
+    },
+    {
+      "leg_num":1,
+      "leg_count":2,
+      "datetime":"2017-12-14T16:01:15.436Z",
+      "IATA":"BRS"
+    }
+  ],
+  "people":{
+    "captain":{
+      "type":"CAPTAIN",
+      "uuid":"3f1e4c77-e605-45d2-ab83-7cba9160b382",
+      "details":{
+        "gender":"FEMALE",
+        "address":"76 Hammersmith Rd",
+        "dob":"2017-12-14",
+        "place":"London",
+        "nationality":"UK",
+        "given_name":"hannah",
+        "family_name":"test",
+        "document_type":"passport",
+        "document_no":"1234567",
+        "document_expiryDate":"2017-12-14",
+        "document_issuingCountry":"UK"
+      }
+    },
+    "crew":[
+      {
+        "type":"CREW",
+        "uuid":"3a8d0a38-9207-48ef-a185-d589a9757457",
+        "details":{
+          "gender":"FEMALE",
+          "address":"77 Hammersmith Rd",
+          "dob":"2017-12-15",
+          "place":"Bristol",
+          "nationality":"GB",
+          "given_name":"hello",
+          "family_name":"world",
+          "document_type":"passport",
+          "document_no":"zzzzz",
+          "document_expiryDate":"2018-12-14",
+          "document_issuingCountry":"DE"
+        }
+      }
+    ],
+    "passengers":[
+      {
+        "type":"PASSENGER",
+        "uuid":"70b8282f-b562-4054-8294-7d1ccd897aee",
+        "details":{
+          "gender":"MALE",
+          "address":"10 Hammersmith Rd",
+          "dob":"2016-12-14",
+          "place":"Edinburgh",
+          "nationality":"ES",
+          "given_name":"happy",
+          "family_name":"day",
+          "document_type":"passport",
+          "document_no":"jklonasd",
+          "document_expiryDate":"2017-11-14",
+          "document_issuingCountry":"GB"
+        }
+      }
+    ]
+  },
+  "files":null,
+  "attributes":{
+    "hazardous": true,
+    "responsible_person": {
+      "contact_number": "102930211",
+      "name": "Responsible person",
+      "address": "abc123",
+      "type": "OTHER"
+    }
+  }
+}

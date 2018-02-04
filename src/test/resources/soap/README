@@ -1,0 +1,17 @@
+The project subfolder has a the SOAP UI project for generating a mock CBP SOAP endpoint for development and testing
+ 
+ Soap UI can be compiled from source here:
+ https://github.com/SmartBear/soapui
+ 
+ Alternatively a precompiled binary of the tool can be downloaded from:
+ https://www.soapui.org/downloads/soapui.html
+ 
+This project can be used to generate/update the mock cbp war used for validation tests in the submission API.
+To generate a new war file, install SOAP UI and run the wargenerator.sh/ wargenerator.bat command from the $SOAPUI_HOME/bin folder with the following options:
+
+${SOAPUI_HOME}/bin/wargenerator.sh  
+	-d "src\test\resources\files/CBPSubmissionValidation"  
+	-f "CBPSubmissionMock" 
+	-e "http://localhost:9046/CBP/CarrierWebService/CarrierService.svc"
+	-w "true"
+	project\CBP-wsdl-soapui-project.xml

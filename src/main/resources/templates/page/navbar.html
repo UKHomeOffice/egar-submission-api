@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+<head>
+	<meta charset="utf-8"/>
+    <title>Hello Spring Boot &amp; Bootswatch: Darkly</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <!-- Public CDN via jsDelivr -->
+    <!--  
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootswatch-darkly/3.3.1+2/css/bootstrap-theme.min.css" th:href="@{/webjars/bootswatch-darkly/3.3.1+2/css/bootstrap-theme.min.css}" rel="stylesheet" media="screen" />
+	-->     
+    <link rel="stylesheet" href="https://bootswatch.com/darkly/bootstrap.css" media="screen"/> 
+	<link rel="stylesheet" href="https://bootswatch.com/assets/css/bootswatch.min.css"/>    
+    
+</head>
+  <body>
+    <div th:fragment="copy" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">GOV.UK - eGar project</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+           <ul class="nav navbar-nav">
+            <li th:attr="class=${ #httpServletRequest.requestURI=='/' ? 'active' : null}">
+              <a href="../">Home</a>
+            </li>
+            <li th:attr="class=${ #httpServletRequest.requestURI=='/api.html' ? 'active' : null}">
+            	<a href="api.html">API</a>
+            </li>
+            <li th:attr="class=${ #httpServletRequest.requestURI=='/help.html' ? 'active' : null}">
+              <a href="../help.html">Help</a>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+          	<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Built With <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+              	<li><a href="http://projects.spring.io/spring-boot/" target="_blank"><b>Application Framework</b> Springboot</a></li>
+              	<li class="divider"></li>
+				<li><a href="http://swagger.io/" target="_blank"><b>API documentation</b> 'Swagger'</a></li>
+				<li class="divider"></li>
+				<li><a href="http://www.thymeleaf.org/" target="_blank"><b>UX template engine</b> 'Thymeleaf'</a></li>
+            	<li><a href="http://builtwithbootstrap.com/" target="_blank"><b>CSS framework</b> 'Bootstrap'</a></li>
+            	<li><a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow"><b>Icons</b> 'Font Awesome'</a></li>
+            	<li><a href="http://www.google.com/webfonts" rel="nofollow"><b>Web fonts </b>'Google'</a> </li>
+				<li class="divider"></li>
+            	<li><a href="../licence.html">Code released under the MIT License</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div style="margin-top:3em" class="container">
+    THEME CONTENT FOR 'NAVBAR'
+      </div>
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://bootswatch.com/assets/js/bootswatch.js"></script>
+	<!-- 
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"	th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+    <script src="http://cdn.jsdelivr.net/webjars/bootswatch-darkly/3.3.1+2/js/bootstrap.min.js"	th:src="@{/webjars/bootswatch-darkly/3.3.1+2/js/bootstrap.min.js}"></script>
+    <script src="../assets/js/bootswatch.js"></script>
+	 -->
+  <script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&a.indexOf("/cdn-cgi/l/email-protection") > -1  && (a.length > 28)){s='';j=27+ 1 + a.indexOf("/cdn-cgi/l/email-protection");if (a.length > j) {r=parseInt(a.substr(j,2),16);for(j+=2;a.length>j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);}t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+</body>
+</html>

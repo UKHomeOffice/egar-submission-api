@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page">
+    <head>
+		<meta charset="utf-8"/>
+	    <title th:include="this :: title"></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<!-- TODO Place these in a way that a templat includes them as needed -->	    
+		  <link href='/webjars/swagger-ui/2.1.8-M1/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+		  <link href='/webjars/swagger-ui/2.1.8-M1/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+		  <link href='/webjars/swagger-ui/2.1.8-M1/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+		  <link href='/webjars/swagger-ui/2.1.8-M1/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+		  <link href='/webjars/swagger-ui/2.1.8-M1/css/screen.css' media='print' rel='stylesheet' type='text/css'/>
+  
+ 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen"/> 
+ 		<link rel="stylesheet" href="assets/css/gov.css" media="screen"/> 
+		<style type="text/css">
+		
+
+		
+		
+		</style>  	    
+    </head>
+    <body>
+        <div th:replace="page/navbar :: copy"/>
+        
+        <div class="container">
+	        <div th:replace="page/header :: copy"/>
+	        <div th:replace="page/content :: copy"/>
+	        <div th:replace="page/footer :: copy"/>
+		</div>
+		        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<span th:include="this :: scripts" ><!-- END SCRIPTS --></span>
+    </body>
+</html>

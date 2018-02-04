@@ -1,0 +1,43 @@
+{
+  "gar_uuid":"cfdcc109-d2d3-4c0c-812b-2b99dbe89d71",
+  "aircraft":{
+    "type":"helicopter",
+    "registration":"TEST12345",
+    "base":"EGAA",
+    "taxesPaid":true
+  },
+  "location":[
+    {
+      "leg_num":null,
+      "leg_count":0,
+      "datetime":"2017-12-14T16:00:15.42z",
+      "ICAO":"EGAA"
+    },
+    {
+      "leg_num":null,
+      "leg_count":0,
+      "datetime":"2017-12-14T16:00:15.42z",
+      "ICAO":"EGAA"
+    }
+  ],
+  "people": {
+    "captain" : {
+      "type": "CAPTAIN",
+      "details" : {
+        "gender":"FEMALE",
+        "address":"76 Hammersmith Rd",
+        "dob":"2017-12-14",
+        "place":"London",
+        "nationality":"GB",
+        "given_name":"test1",
+        "family_name":"captain",
+        "document_type":"passport",
+        "document_no":"123456",
+        "document_expiryDate":"2017-07-14",
+        "document_issuingCountry":"GB"
+      }
+    }
+  },
+  "files":null,
+  "attributes" : {}
+}

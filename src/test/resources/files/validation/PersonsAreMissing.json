@@ -1,0 +1,33 @@
+{
+  "gar_uuid":"cfdcc109-d2d3-4c0c-812b-2b99dbe89d71",
+  "aircraft":{
+    "type":"helicopter",
+    "registration":"TEST12345",
+    "base":"EGAA",
+    "taxesPaid":true
+  },
+  "location":[
+    {
+      "leg_num":null,
+      "leg_count":0,
+      "datetime":"2017-12-14T16:00:15.42z",
+      "ICAO":"EGAA"
+    },
+    {
+      "leg_num":null,
+      "leg_count":0,
+      "datetime":"2017-12-14T16:00:15.42z",
+      "ICAO":"EGAA"
+    }
+  ],
+  "files":null,
+  "attributes":{
+    "hazardous": true,
+    "responsible_person": {
+      "contact_number": "102930211",
+      "name": "Responsible person",
+      "address": "abc123",
+      "type": "OTHER"
+    }
+  }
+}

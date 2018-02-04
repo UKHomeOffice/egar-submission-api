@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="f6770aae-5057-42c8-92dd-a319a4c24dc6" activeEnvironment="Default" name="CBP_wsdl" resourceRoot="" soapui-version="5.4.0-EB" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="3cfce9a8-6a91-49aa-8b10-4a81298171a2" wsaVersion="NONE" name="CarrierWcfWebService.Http" type="wsdl" bindingName="{http://fincore.com/CBPCarrierWebService/}CarrierWcfWebService.Http" soapVersion="1_1" anonymous="optional" definition="file:/C:/workspaces/egar-microservices/egar-submission-api/src/main/resources/wdsl/UAT_eBorders_Carrier_web_service_WSDL.XML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.cxf.CXFAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Output Directory" value="C:\workspaces\egar-microservices\cbp"/>
+  <con:entry key="Server" value="false"/>
+  <con:entry key="EXSH" value="false"/>
+  <con:entry key="DNS" value="true"/>
+  <con:entry key="Class Folder" value=""/>
+  <con:entry key="WSDL" value="C:\workspaces\egar-microservices\egar-submission-api\src\main\resources\wdsl\UAT_eBorders_Carrier_web_service_WSDL.XML"/>
+  <con:entry key="Output Packages" value="&lt;xml-fragment/>"/>
+  <con:entry key="Compile" value="false"/>
+  <con:entry key="Bindings" value=""/>
+  <con:entry key="Implementation" value="false"/>
+  <con:entry key="Catalog" value=""/>
+  <con:entry key="Use cached WSDL" value="false"/>
+  <con:entry key="Exclude namespaces" value="&lt;xml-fragment/>"/>
+  <con:entry key="DEX" value="true"/>
+  <con:entry key="All Code" value="false"/>
+  <con:entry key="build.xml" value="false"/>
+  <con:entry key="Validate WSDL" value="false"/>
+  <con:entry key="Java Args" value=""/>
+  <con:entry key="Package" value=""/>
+  <con:entry key="Client" value="true"/>
+  <con:entry key="Tool Args" value=""/>
+</xml-fragment>]]></con:setting></con:settings><con:definitionCache type="TEXT" rootPart="file:/C:/workspaces/egar-microservices/egar-submission-api/src/main/resources/wdsl/UAT_eBorders_Carrier_web_service_WSDL.XML"><con:part><con:url>file:/C:/workspaces/egar-microservices/egar-submission-api/src/main/resources/wdsl/UAT_eBorders_Carrier_web_service_WSDL.XML</con:url><con:content><![CDATA[<wsdl:definitions name="CarrierService" targetNamespace="http://fincore.com/CBPCarrierWebService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:i0="http://tempuri.org/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://fincore.com/CBPCarrierWebService/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+  <wsp:Policy wsu:Id="CarrierWcfWebService.Http_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false"/>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict/>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://fincore.com/CBPCarrierWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://fincore.com/CBPCarrierWebService/entities"/>
+      <xs:element name="SubmitSTTXML">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="stt_xml" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitSTTXMLResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SubmitSTTXMLResult" nillable="true" type="q1:SubmitReturnType" xmlns:q1="http://fincore.com/CBPCarrierWebService/entities"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitWithAttachments">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="files" nillable="true" type="q2:ArrayOfFile" xmlns:q2="http://fincore.com/CBPCarrierWebService/entities"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitWithAttachmentsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SubmitWithAttachmentsResult" nillable="true" type="q3:SubmitReturnType" xmlns:q3="http://fincore.com/CBPCarrierWebService/entities"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitFALWithTypedAttachments">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="files" nillable="true" type="q4:ArrayOfTypedFile" xmlns:q4="http://fincore.com/CBPCarrierWebService/entities"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitFALWithTypedAttachmentsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SubmitFALWithTypedAttachmentsResult" nillable="true" type="q5:SubmitReturnType" xmlns:q5="http://fincore.com/CBPCarrierWebService/entities"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cancel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="identifier" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="reason" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CancelResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="CancelResult" nillable="true" type="q6:CancelReturnType" xmlns:q6="http://fincore.com/CBPCarrierWebService/entities"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Version">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="VersionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="VersionResult" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Heartbeat">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="HeartbeatResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="HeartbeatResult" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+      <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+      <xs:element name="byte" nillable="true" type="xs:byte"/>
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+      <xs:element name="double" nillable="true" type="xs:double"/>
+      <xs:element name="float" nillable="true" type="xs:float"/>
+      <xs:element name="int" nillable="true" type="xs:int"/>
+      <xs:element name="long" nillable="true" type="xs:long"/>
+      <xs:element name="QName" nillable="true" type="xs:QName"/>
+      <xs:element name="short" nillable="true" type="xs:short"/>
+      <xs:element name="string" nillable="true" type="xs:string"/>
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+      <xs:element name="char" nillable="true" type="tns:char"/>
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int"/>
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration"/>
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid"/>
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName"/>
+      <xs:attribute name="Id" type="xs:ID"/>
+      <xs:attribute name="Ref" type="xs:IDREF"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://fincore.com/CBPCarrierWebService/entities" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://fincore.com/CBPCarrierWebService/entities">
+      <xs:complexType name="SubmitReturnType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="OK" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Reason" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="SubmittedTime" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="SubmitReturnType" nillable="true" type="tns:SubmitReturnType"/>
+      <xs:complexType name="ArrayOfFile">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="File" nillable="true" type="tns:File"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfFile" nillable="true" type="tns:ArrayOfFile"/>
+      <xs:complexType name="File">
+        <xs:sequence>
+          <xs:element name="Data" nillable="true" type="xs:base64Binary"/>
+          <xs:element name="Filename" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="File" nillable="true" type="tns:File"/>
+      <xs:complexType name="ArrayOfTypedFile">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TypedFile" nillable="true" type="tns:TypedFile"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfTypedFile" nillable="true" type="tns:ArrayOfTypedFile"/>
+      <xs:complexType name="TypedFile">
+        <xs:sequence>
+          <xs:element name="Data" nillable="true" type="xs:base64Binary"/>
+          <xs:element name="Filename" nillable="true" type="xs:string"/>
+          <xs:element name="Type" type="tns:FileType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TypedFile" nillable="true" type="tns:TypedFile"/>
+      <xs:simpleType name="FileType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FAL1"/>
+          <xs:enumeration value="FAL1Supporting"/>
+          <xs:enumeration value="FAL2"/>
+          <xs:enumeration value="FAL2Supporting"/>
+          <xs:enumeration value="FAL3"/>
+          <xs:enumeration value="FAL3Supporting"/>
+          <xs:enumeration value="FAL4"/>
+          <xs:enumeration value="FAL4Supporting"/>
+          <xs:enumeration value="FAL5and6_STT"/>
+          <xs:enumeration value="FAL5and6Supporting"/>
+          <xs:enumeration value="FAL7"/>
+          <xs:enumeration value="FAL7Supporting"/>
+          <xs:enumeration value="ISPSSecurityDeclaration"/>
+          <xs:enumeration value="ISPSSupporting"/>
+          <xs:enumeration value="WasteDeclaration"/>
+          <xs:enumeration value="WasteSupporting"/>
+          <xs:enumeration value="HealthDeclaration"/>
+          <xs:enumeration value="HealthSupporting"/>
+          <xs:enumeration value="Misc"/>
+          <xs:enumeration value="Excel"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="FileType" nillable="true" type="tns:FileType"/>
+      <xs:complexType name="CancelReturnType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OK" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Reason" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CancelReturnType" nillable="true" type="tns:CancelReturnType"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ICarrierService_SubmitSTTXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitSTTXML"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_SubmitSTTXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitSTTXMLResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_SubmitWithAttachments_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitWithAttachments"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_SubmitWithAttachments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitWithAttachmentsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_SubmitFALWithTypedAttachments_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitFALWithTypedAttachments"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_SubmitFALWithTypedAttachments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitFALWithTypedAttachmentsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_Cancel_InputMessage">
+    <wsdl:part name="parameters" element="tns:Cancel"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_Cancel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_Version_InputMessage">
+    <wsdl:part name="parameters" element="tns:Version"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_Version_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VersionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_Heartbeat_InputMessage">
+    <wsdl:part name="parameters" element="tns:Heartbeat"/>
+  </wsdl:message>
+  <wsdl:message name="ICarrierService_Heartbeat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HeartbeatResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ICarrierService">
+    <wsdl:operation name="SubmitSTTXML">
+      <wsdl:input wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitSTTXML" message="tns:ICarrierService_SubmitSTTXML_InputMessage"/>
+      <wsdl:output wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitSTTXMLResponse" message="tns:ICarrierService_SubmitSTTXML_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitWithAttachments">
+      <wsdl:input wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitWithAttachments" message="tns:ICarrierService_SubmitWithAttachments_InputMessage"/>
+      <wsdl:output wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitWithAttachmentsResponse" message="tns:ICarrierService_SubmitWithAttachments_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitFALWithTypedAttachments">
+      <wsdl:input wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitFALWithTypedAttachments" message="tns:ICarrierService_SubmitFALWithTypedAttachments_InputMessage"/>
+      <wsdl:output wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitFALWithTypedAttachmentsResponse" message="tns:ICarrierService_SubmitFALWithTypedAttachments_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <wsdl:input wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/Cancel" message="tns:ICarrierService_Cancel_InputMessage"/>
+      <wsdl:output wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/CancelResponse" message="tns:ICarrierService_Cancel_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="Version">
+      <wsdl:input wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/Version" message="tns:ICarrierService_Version_InputMessage"/>
+      <wsdl:output wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/VersionResponse" message="tns:ICarrierService_Version_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="Heartbeat">
+      <wsdl:input wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/Heartbeat" message="tns:ICarrierService_Heartbeat_InputMessage"/>
+      <wsdl:output wsaw:Action="http://fincore.com/CBPCarrierWebService/ICarrierService/HeartbeatResponse" message="tns:ICarrierService_Heartbeat_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CarrierWcfWebService.Http" type="tns:ICarrierService">
+    <wsp:PolicyReference URI="#CarrierWcfWebService.Http_policy"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SubmitSTTXML">
+      <soap:operation soapAction="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitSTTXML" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitWithAttachments">
+      <soap:operation soapAction="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitWithAttachments" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitFALWithTypedAttachments">
+      <soap:operation soapAction="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitFALWithTypedAttachments" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <soap:operation soapAction="http://fincore.com/CBPCarrierWebService/ICarrierService/Cancel" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Version">
+      <soap:operation soapAction="http://fincore.com/CBPCarrierWebService/ICarrierService/Version" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Heartbeat">
+      <soap:operation soapAction="http://fincore.com/CBPCarrierWebService/ICarrierService/Heartbeat" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CarrierService">
+    <wsdl:port name="CarrierWcfWebService.Http" binding="tns:CarrierWcfWebService.Http">
+      <soap:address location="https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc</con:endpoint></con:endpoints><con:operation id="b500616b-3511-466a-a064-cb2341d7a585" isOneWay="false" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Cancel" name="Cancel" bindingOperationName="Cancel" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="65fb6009-69be-419c-8895-86510d6b7fca" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cbp:Cancel>\r
+         <!--Optional:-->\r
+         <cbp:username>?</cbp:username>\r
+         <!--Optional:-->\r
+         <cbp:password>?</cbp:password>\r
+         <!--Optional:-->\r
+         <cbp:identifier>?</cbp:identifier>\r
+         <!--Optional:-->\r
+         <cbp:reason>?</cbp:reason>\r
+      </cbp:Cancel>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Cancel"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="eb21c8e8-1d8c-4237-b593-2baf2b11493b" isOneWay="false" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Heartbeat" name="Heartbeat" bindingOperationName="Heartbeat" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3991e262-3e4c-4730-b983-37ef41e9f87b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9046/CarrierWebService/CarrierService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cbp:Heartbeat>\r
+      </cbp:Heartbeat>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Heartbeat"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="2a5fc3c7-aca3-473b-92fb-4d6fc5743e60" isOneWay="false" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitFALWithTypedAttachments" name="SubmitFALWithTypedAttachments" bindingOperationName="SubmitFALWithTypedAttachments" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="81a57fb6-04a6-4343-b635-7d441999d4bc" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/" xmlns:ent="http://fincore.com/CBPCarrierWebService/entities">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cbp:SubmitFALWithTypedAttachments>\r
+         <!--Optional:-->\r
+         <cbp:username>?</cbp:username>\r
+         <!--Optional:-->\r
+         <cbp:password>?</cbp:password>\r
+         <!--Optional:-->\r
+         <cbp:files>\r
+            <!--Zero or more repetitions:-->\r
+            <ent:TypedFile>\r
+               <ent:Data>cid:320579667233</ent:Data>\r
+               <ent:Filename>?</ent:Filename>\r
+               <ent:Type>?</ent:Type>\r
+            </ent:TypedFile>\r
+         </cbp:files>\r
+      </cbp:SubmitFALWithTypedAttachments>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitFALWithTypedAttachments"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="6b8495ff-d7a6-459c-9ac8-8d988583eca5" isOneWay="false" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitSTTXML" name="SubmitSTTXML" bindingOperationName="SubmitSTTXML" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="71bd899f-a11b-43fd-b658-73775c4342df" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cbp:SubmitSTTXML>\r
+         <!--Optional:-->\r
+         <cbp:username>?</cbp:username>\r
+         <!--Optional:-->\r
+         <cbp:password>?</cbp:password>\r
+         <!--Optional:-->\r
+         <cbp:stt_xml>?</cbp:stt_xml>\r
+      </cbp:SubmitSTTXML>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitSTTXML"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4c6d6642-85fd-4d57-abde-e2de05bf31a1" isOneWay="false" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitWithAttachments" name="SubmitWithAttachments" bindingOperationName="SubmitWithAttachments" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7f862014-d288-400e-9a98-7fb2a10aef8f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/" xmlns:ent="http://fincore.com/CBPCarrierWebService/entities">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cbp:SubmitWithAttachments>\r
+         <!--Optional:-->\r
+         <cbp:username>?</cbp:username>\r
+         <!--Optional:-->\r
+         <cbp:password>?</cbp:password>\r
+         <!--Optional:-->\r
+         <cbp:files>\r
+            <!--Zero or more repetitions:-->\r
+            <ent:File>\r
+               <ent:Data>cid:1003253440476</ent:Data>\r
+               <ent:Filename>?</ent:Filename>\r
+            </ent:File>\r
+         </cbp:files>\r
+      </cbp:SubmitWithAttachments>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitWithAttachments"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5500582f-ce6e-4113-b91c-a8caef4d2b12" isOneWay="false" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Version" name="Version" bindingOperationName="Version" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bf23a2ca-8e72-4834-b197-82ce14d2c983" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cbp:Version>\r
+         <!--Optional:-->\r
+         <cbp:username>?</cbp:username>\r
+         <!--Optional:-->\r
+         <cbp:password>?</cbp:password>\r
+      </cbp:Version>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Version"/></con:call></con:operation></con:interface><con:mockService id="bc3cc2be-e9ff-4be9-9e16-fe4dbb96d03b" port="9046" path="/" host="localhost" name="CBPMockService" bindToHostOnly="false" docroot="" dispatchResponseMessages="true"><con:description/><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">true</con:setting></con:settings><con:properties/><con:onRequestScript>def wsdlcontext = context.mockService.getMockedInterfaces()[0].getDefinitionContext() 
+def validator = new com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator(wsdlcontext);
+
+def operation = mockRequest.soapAction.substring(mockRequest.soapAction.lastIndexOf('/') +1)
+log.info  context.mockService.toString() + "::" + operation
+def wsdlMockOperation = context.mockService.getMockOperationByName(operation)
+ 
+def msgExchange = new com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockRequestMessageExchange(mockRequest, wsdlMockOperation); 
+def errors = validator.assertRequest(msgExchange, false);
+
+if (errors.length > 0 ) {
+     throw new Exception("VALIDATION ERRORS: " + errors.collect(){ '\n' + it })
+}
+</con:onRequestScript><con:mockOperation name="Heartbeat" id="26691892-253a-4fbe-abc4-17ca54601acf" interface="CarrierWcfWebService.Http" operation="Heartbeat"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="ea2557f6-07e9-4b48-b43b-7b1eaa508943" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cbp:HeartbeatResponse>
+         <cbp:HeartbeatResult>true</cbp:HeartbeatResult>
+      </cbp:HeartbeatResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/Heartbeat"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="SubmitSTTXML" id="f804932b-33bc-4018-a296-1a1cf15f04cd" interface="CarrierWcfWebService.Http" operation="SubmitSTTXML"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="3a532f6c-fd61-4cc5-a9bf-ac0c16f44346" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cbp="http://fincore.com/CBPCarrierWebService/" xmlns:ent="http://fincore.com/CBPCarrierWebService/entities">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cbp:SubmitSTTXMLResponse>
+         <cbp:SubmitSTTXMLResult>
+            <ent:Identifier>EGAR-1234</ent:Identifier>
+            <ent:OK>true</ent:OK>
+            <ent:Reason>Mock submission ok</ent:Reason>
+         </cbp:SubmitSTTXMLResult>
+      </cbp:SubmitSTTXMLResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://fincore.com/CBPCarrierWebService/ICarrierService/SubmitSTTXML"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

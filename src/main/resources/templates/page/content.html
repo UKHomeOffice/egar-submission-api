@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <body>
+     <div th:fragment="copy" xstyle="margin-top:-3em;min-height:10em" class="bs-docs-section clearfix">
+         <!-- CONTENT: /templates/page/content.html -->
+        <div class="row">
+        	<div class="col-lg-12">
+         		<div th:include="this :: content"> </div>
+        	
+      		</div>
+      	</div>
+      	<!-- CONTENT: end  -->
+      </div>
+      
+  </body>
+  
+</html>
