@@ -19,7 +19,7 @@ The service exposes a number of end-points for monitoring:
 * `/health` A standard status health end-point, which will show the type of db in use.
 * `/info` A standard informational endpoint which reveals the application name & version.
 * `/healthz` An K8 endpoint for monitoring if the application is up. Http:200 or Http:500 if in trouble (No body content).
-* `/readiness` A copy of the above; Subject to change..
+* `/readiness` A copy of the above; Subject to change.
 * `/metrics` A K8 endpoint for monitoring the memory usage and other stats of the service.
 
 ## Running locally (in memory without calls to CBP, S3, SQS or jms)
