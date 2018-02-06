@@ -1,0 +1,122 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.4.0 (c7964e7)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: submission-api
+  name: submission-api
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: submission-api
+    spec:
+      containers:
+        - args:
+          - --spring.profiles.active=prod
+          - --prod.database.url=jdbc:postgresql://egar.chmjeqipapmr.eu-west-2.rds.amazonaws.com/egardb
+          - --prod.database.username=$(DB_USER)
+          - --prod.database.password=$(DB_PASS)
+          - --cbp.username=$(CBP_USER)
+          - --cbp.password=$(CBP_PASS)
+          - --cbp.url=https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc
+          - --aws.sqs.region=eu-west-2
+          - --aws.sqs.access.key=$(AWS_SQS_KEY)
+          - --aws.sqs.secret.key=$(AWS_SQS_SECRET)
+          - --aws.s3.region=eu-west-2
+          - --aws.s3.bucket=egar-file-clean
+          - --aws.s3.access.key=$(AWS_S3_KEY)
+          - --aws.s3.secret.key=$(AWS_S3_SECRET)
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: dbuser
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: dbpass
+            - name: CBP_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: cbppass
+            - name: CBP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: cbpuser
+            - name: AWS_S3_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: awss3ackey
+            - name: AWS_S3_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: awss3seckey
+            - name: AWS_SQS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: awssqsackey
+            - name: AWS_SQS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: awssqsseckey
+          image: pipe.egarteam.co.uk/egar-submission-api:$SUBMISSION_API_VER
+          name: submission-api
+          livenessProbe:
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            httpGet:
+              path: /health
+              port: 8085
+          resources: {}
+        - args:
+          - --discovery-url=http://auth.egarteam.co.uk/auth/realms/egar
+          - --client-id=$(CLIENT_ID)
+          - --client-secret=$(CLIENT_SECRET)
+          - --listen=0.0.0.0:8010
+          - --encryption-key=$(ENCRYPT_KEY)
+          - --upstream-url=http://localhost:8085
+          - --resources=uri=/api/*|roles=uma_authorization
+          - --secure-cookie=false
+          - --enable-logging=true
+          - --no-redirects=true
+          - --upstream-response-header-timeout=50s
+          - --upstream-timeout=50s
+          - --upstream-keepalive-timeout=50s
+          - --upstream-expect-continue-timeout=50s
+          - --add-claims=email
+          env:
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: clientid
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: clientsecret
+            - name: ENCRYPT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: enckey
+          image: quay.io/gambol99/keycloak-proxy
+          name: submission-api-proxy
+          resources: {}
+      restartPolicy: Always
+status: {}
