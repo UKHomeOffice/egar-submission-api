@@ -6,7 +6,7 @@ pipeline:
       branch: [master, develop]
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
-    secrets: [ access_key, access_key_id ]
+    secrets: [ access_key, access_key_id, access_id ]
     commands:
       - ./build-deploy.sh
   deploy_docker_image:
