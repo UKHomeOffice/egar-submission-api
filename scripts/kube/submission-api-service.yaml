@@ -13,3 +13,4 @@ spec:
     io.kompose.service: submission-api
 status:
   loadBalancer: {}
+

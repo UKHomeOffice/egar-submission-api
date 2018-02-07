@@ -5,11 +5,11 @@ metadata:
     io.kompose.service: submission-api
   name: submission-api
 spec:
-  type: NodePort
   ports:
-  - name: headless
-    port: 8010
+  - port: 8010
+    protocol: TCP
   selector:
     io.kompose.service: submission-api
 status:
   loadBalancer: {}
+
