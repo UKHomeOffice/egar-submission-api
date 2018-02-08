@@ -25,7 +25,7 @@ spec:
           - --prod.database.password=$(DB_PASS)
           - --cbp.username=$(CBP_USER)
           - --cbp.password=$(CBP_PASS)
-          - --cbp.url=https://uatborderforce.cbp-bf.com/CarrierWebService/CarrierService.svc
+          - --cbp.url=https://$(CBP_URL)
           - --aws.sqs.region=eu-west-2
           - --aws.sqs.access.key=$(AWS_SQS_KEY)
           - --aws.sqs.secret.key=$(AWS_SQS_SECRET)
@@ -33,6 +33,8 @@ spec:
           - --aws.s3.bucket=egar-file-clean
           - --aws.s3.access.key=$(AWS_S3_KEY)
           - --aws.s3.secret.key=$(AWS_S3_SECRET)
+          - --submission.queue.name=develop_cbp_submission_request
+          - --cancellation.queue.name=develop_cbp_cancellation_request
           env:
             - name: DB_USER
               valueFrom:
@@ -54,6 +56,11 @@ spec:
                 secretKeyRef:
                   name: egar-secret
                   key: cbpuser
+            - name: CBP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: egar-secret
+                  key: cbpurl
             - name: AWS_S3_KEY
               valueFrom:
                 secretKeyRef:
@@ -77,11 +84,11 @@ spec:
           image: pipe.egarteam.co.uk/egar-submission-api:$SUBMISSION_API_VER
           name: submission-api
           livenessProbe:
-            initialDelaySeconds: 60
-            periodSeconds: 20
+            initialDelaySeconds: 90
+            periodSeconds: 30
             httpGet:
-              path: /health
-              port: 8085
+              path: /healthz
+              port: 8080
           resources: {}
         - args:
           - --discovery-url=http://auth.egarteam.co.uk/auth/realms/egar
@@ -89,7 +96,7 @@ spec:
           - --client-secret=$(CLIENT_SECRET)
           - --listen=0.0.0.0:8010
           - --encryption-key=$(ENCRYPT_KEY)
-          - --upstream-url=http://localhost:8085
+          - --upstream-url=http://localhost:8080
           - --resources=uri=/api/*|roles=uma_authorization
           - --secure-cookie=false
           - --enable-logging=true
