@@ -42,11 +42,13 @@ public class SubmissionJmsService implements SubmissionService {
         try {
             submission = objectMapper.readValue(request, QueuedGarSubmissionToCbpPojo.class);
 
+            logger.debug(String.format("Processing JMS queue request with submission id '%s'", submission.getSubmissionUuid()));
+
             submissionProcessor.processSubmissionRequests(submission);
         }catch (Exception e){
             String errorMessage = "Encountered error when attempting to perform submission.";
             if (submission!=null){
-                errorMessage = String.format("Encountered error when attempting to perform submission'%s'.", submission.getSubmissionUuid());
+                errorMessage = String.format("Encountered error when attempting to perform submission '%s'.", submission.getSubmissionUuid());
             }
             logger.error(errorMessage, e);
             throw new JMSException(errorMessage);

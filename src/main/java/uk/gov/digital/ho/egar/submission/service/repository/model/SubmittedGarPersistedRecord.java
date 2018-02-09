@@ -18,6 +18,7 @@ import uk.gov.digital.ho.egar.submission.model.SubmittedGar;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString
 @Table(name="GAR_SUBMISSION")
 public class SubmittedGarPersistedRecord implements SubmittedGar {
 	

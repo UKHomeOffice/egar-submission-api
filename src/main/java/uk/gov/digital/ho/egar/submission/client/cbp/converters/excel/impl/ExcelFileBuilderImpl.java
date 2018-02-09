@@ -2,6 +2,7 @@ package uk.gov.digital.ho.egar.submission.client.cbp.converters.excel.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -41,11 +43,6 @@ public class ExcelFileBuilderImpl implements ExcelFileBuilder {
 	public static final String FILE_NAME_FORMAT = "%s.xlsx";
 	protected final Log logger = LogFactory.getLog(ExcelFileBuilderImpl.class);
 
-	/**
-	 * The filesystem of the excel template.
-	 */
-	private final java.io.File fs;
-
 	@Autowired 
 	private AddLocationToExcel portExcel;
 	
@@ -56,8 +53,10 @@ public class ExcelFileBuilderImpl implements ExcelFileBuilder {
 	private AddPeopleToExcel peopleExcel;
 
 	public ExcelFileBuilderImpl() throws IOException, EncryptedDocumentException, InvalidFormatException, URISyntaxException{
-		URL templateStream =  Thread.currentThread().getContextClassLoader().getResource("excel-template/GAR_Template_V7_2017.xlsx");
-		fs = new java.io.File(templateStream.toURI());
+
+		//This needs to be a stream as we will not be able to open a resource file when built as a JAR
+		//Testing that we are able to open the file
+		getTemplateInputStream();
 	}
 
 	public File convertPojoToExcel(QueuedGarSubmissionToCbp submission) throws SubmissionApiException, InvalidFormatException {
@@ -122,7 +121,12 @@ public class ExcelFileBuilderImpl implements ExcelFileBuilder {
 
 	//Gets a new HSSFWorkbook from the filesystem.
 	private XSSFWorkbook getNewTemplateFile() throws IOException, InvalidFormatException {
-		return  new XSSFWorkbook(fs);
+		return new XSSFWorkbook(getTemplateInputStream());
+	}
+
+	//Needs to be an input stream as we cannot open a resource file when this has been built into a JAR.
+	private InputStream getTemplateInputStream(){
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream("excel-template/GAR_Template_V7_2017.xlsx");
 	}
 
 }

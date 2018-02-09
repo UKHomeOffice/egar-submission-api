@@ -47,8 +47,13 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 
 	@Override
 	public void processSubmissionRequests(QueuedGarSubmissionToCbp submission) throws IOException {
+
+		logger.debug(String.format("Processing submission request '%s'", submission.getSubmissionUuid()));
+
 		if (submission.getSupportingFiles() == null || submission.getSupportingFiles().size() == 0) {
 			try {
+				logger.debug(String.format("Converting submission request '%s' to xml", submission.getSubmissionUuid()));
+
 				String submissionXml = convertRequestToXmlString(submission, submission.getSubmittingUser());
 				submitToCbpAndPersistResponse(submission.getSubmittingUser(), submissionXml, submission.getSubmissionUuid());
 			} catch (SubmissionTransformationException e) {
@@ -57,6 +62,8 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 			}
 		}else {
 			try {
+				logger.debug(String.format("Converting submission request '%s' to excel", submission.getSubmissionUuid()));
+
 				ArrayOfFile arrayOfFile = excelGarMarshaller.convertPojoToExcel(submission);
 				submitToCbpAndPersistResponse(submission.getSubmittingUser(), arrayOfFile, submission.getSubmissionUuid());
 			} catch (SubmissionApiException|InvalidFormatException e) {
@@ -97,6 +104,8 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 	private void submitToCbpAndPersistResponse(SubmittingUser submittingUser, ArrayOfFile arrayOfFile,
 											   UUID submissionUuid) {
 		try {
+			logger.debug(String.format("Submitting request '%s' as excel to cbp", submissionUuid.toString()));
+
 			//Submit to CBP
 			CbpSubmissionResponse cbpResponse = cbpClient.submitWithAttachments(arrayOfFile);
 
@@ -131,10 +140,12 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 	 */
 	private void submitToCbpAndPersistResponse(SubmittingUser submittingUser, String cbpXml, UUID submissionUuid){
 		try {
+			logger.debug(String.format("Submitting request '%s' as xml to cbp", submissionUuid.toString()));
+
 			//Submit to CBP
 			CbpSubmissionResponse cbpResponse = cbpClient.submitSTTXML(cbpXml);
 
-			logger.debug("Reference returned " + cbpResponse.getIdentifier());
+			logger.debug(String.format("Reference for submission '%s' returned with response '%s'",submissionUuid.toString(), cbpResponse.toString()));
 			updateSubmissionWithResponse(submittingUser, submissionUuid, cbpResponse);
 		}
 		catch (Exception e){
@@ -152,6 +163,8 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 	 */
 	private UUID updateSubmissionWithResponse(final SubmittingUser authValues, final UUID submissionUuid, final CbpSubmissionResponse submissionResponse) {
 
+		logger.debug(String.format("Updating persisted record for submission '%s' with cbp response '%s'",submissionUuid.toString(), submissionResponse.toString()));
+
 		SubmittedGarPersistedRecord record = repository.findOneBySubmissionUuidAndUserUuid(submissionUuid, authValues.getUserUuid());
 
 		record.setExternalSubmissionReason(truncateReason(submissionResponse));
@@ -159,6 +172,8 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 		record.setStatus(submissionResponse.isSuccess()?SubmissionStatus.SUBMITTED: SubmissionStatus.FAILED);
 
 		record = record.updateEditDateTime();
+
+		logger.debug(String.format("Updating persisted record for submission '%s', to '%s'",submissionUuid.toString(), record.toString()));
 
 		repository.saveAndFlush(record);
 
@@ -177,6 +192,8 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 		record.setStatus(SubmissionStatus.FAILED);
 
 		record = record.updateEditDateTime();
+
+		logger.debug(String.format("Updating persisted record for failing submission '%s', to '%s'",submissionUuid.toString(), record.toString()));
 
 		repository.saveAndFlush(record);
 

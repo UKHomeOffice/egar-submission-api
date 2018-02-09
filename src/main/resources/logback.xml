@@ -11,6 +11,9 @@
   <logger name="springfox" level="info"/>
   <logger name="com.mangofactory.swagger.models.ObjectMapperBeanPropertyNamingStrategy" level="info"/>
 
+  <logger name="org.hibernate" level="info"/>
+  <logger name="com.amazonaws" level="info"/>
+
   <logger name="org.springframework.ws.client.MessageTracing">
     <level value="TRACE"/>
   </logger>
