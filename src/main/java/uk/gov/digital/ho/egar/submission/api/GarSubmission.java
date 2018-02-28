@@ -1,5 +1,6 @@
 package uk.gov.digital.ho.egar.submission.api;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -21,4 +22,6 @@ public interface GarSubmission  {
                                        Errors errors) throws SubmissionApiException;
 
     public GarSubmissionResponse retrieve(UUID userUuid, UUID uuid) throws SubmissionApiException;
+
+	GarSubmissionResponse[] bulkRetrieveGARs(final UUID uuidOfUser, final List<UUID> submissionUuids);
 }

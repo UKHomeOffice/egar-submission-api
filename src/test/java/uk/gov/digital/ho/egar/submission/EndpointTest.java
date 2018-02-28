@@ -1,6 +1,8 @@
 package uk.gov.digital.ho.egar.submission;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import uk.gov.digital.ho.egar.submission.model.jms.QueuedGarCancellationToCbpPoj
 import uk.gov.digital.ho.egar.submission.service.repository.SubmittedGarPersistedRecordRepository;
 import uk.gov.digital.ho.egar.submission.service.repository.model.SubmittedGarPersistedRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +34,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -44,6 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.gov.digital.ho.egar.submission.tests.utils.FileReaderUtils.readFileAsString;
+import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties
@@ -65,6 +70,8 @@ public class EndpointTest {
     private static final String ALTERNATIVE_CONTACT_HEADER = "x-auth-alt-contact-number";
     private static final String USERID_HEADER = "x-auth-subject";
     private static final String AUTH_HEADER = "Authorization";
+    
+    private static final String PATH_BULK = "/api/v1/Submission/Summaries";
 
     @Autowired
     private SubmittedGarPersistedRecordRepository repo;
@@ -74,6 +81,9 @@ public class EndpointTest {
 
     @Autowired
     private MockMvc mockMvc;
+    
+    @Autowired
+    private ObjectMapper mapper;
 
     @Autowired
     private QueueNames queueNames;
@@ -504,6 +514,121 @@ public class EndpointTest {
 
     }
 
+    //--------------------------------------------------------------------------------------------------------------------
+    
+    @Test
+	public void shouldOnlyBulkfetchSubmissionsInListAndForThisUser() throws Exception{
+		// WITH
+		repo.deleteAll();
+		UUID userUuid = UUID.randomUUID();
+
+		List<UUID> submissionUuids = new ArrayList<>();
+
+		// add three submissions for the current user and save ids to list
+		for (int i=0; i<3 ; i++) {
+			UUID submissionUuid = UUID.randomUUID();
+			
+		SubmittedGarPersistedRecord record = SubmittedGarPersistedRecord.builder()
+                .submissionUuid(submissionUuid)
+                .garUuid(UUID.fromString("cfdcc109-d2d3-4c0c-812b-2b99dbe89d71"))
+                .userUuid(userUuid)
+                .status(SubmissionStatus.SUBMITTED)
+                .build();
+        repo.saveAndFlush(record);
+			submissionUuids.add(submissionUuid);
+		}
+		// add a file for user but dont add to list
+		UUID submissionUuid = UUID.randomUUID();
+			SubmittedGarPersistedRecord record = SubmittedGarPersistedRecord.builder()
+                .submissionUuid(submissionUuid)
+                .garUuid(UUID.fromString("cfdcc109-d2d3-4c0c-812b-2b99dbe89d71"))
+                .userUuid(userUuid)
+                .status(SubmissionStatus.SUBMITTED)
+                .build();
+        repo.saveAndFlush(record);
+		// add a file for different user
+		UUID submissionUuidOther = UUID.randomUUID();
+		UUID UuidDiffUser = UUID.randomUUID();
+		SubmittedGarPersistedRecord otherRecord = SubmittedGarPersistedRecord.builder()
+                .submissionUuid(submissionUuidOther)
+                .garUuid(UUID.fromString("cfdcc109-d2d3-4c0c-812b-2b99dbe89d71"))
+                .userUuid(UuidDiffUser)
+                .status(SubmissionStatus.SUBMITTED)
+                .build();
+        repo.saveAndFlush(otherRecord);
+		submissionUuids.add(submissionUuidOther);
+		// WHEN
+		MvcResult result =
+				this.mockMvc
+				.perform(post(PATH_BULK).header(USERID_HEADER, userUuid)
+						.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+						.content(mapper.writeValueAsString(submissionUuids)))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				//THEN
+				.andExpect(jsonPath("$").exists())
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$", hasSize(3)))
+				.andExpect(jsonPath("$[*]submission.submission_uuid", hasItems(submissionUuids.get(0).toString(),submissionUuids.get(1).toString(),submissionUuids.get(2).toString()))).andReturn();
+		//Check it doesn't contain other files
+		String response = result.getResponse().getContentAsString();
+		assertFalse(response.contains(submissionUuid.toString()));
+		assertFalse(response.contains(submissionUuids.get(3).toString()));
+
+	}
+
+	@Test
+	public void bulkFetchShouldReturnEmptyArrayIfNoMatch() throws Exception{
+		// WITH
+		repo.deleteAll();
+		UUID userUuid       = UUID.randomUUID();
+		List<UUID> submissionUuids = new ArrayList<>();
+		for (int i=0; i<3 ; i++) {
+			submissionUuids.add(UUID.randomUUID());
+		}
+		// WHEN
+		this.mockMvc
+		.perform(post(PATH_BULK).header(USERID_HEADER, userUuid)
+				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.content(mapper.writeValueAsString(submissionUuids)))
+		// THEN
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$").exists())
+		.andExpect(jsonPath("$").isArray())
+		.andExpect(jsonPath("$", hasSize(0)));
+	}
+	
+	@Test
+	public void bulkFetchShouldNotContainDuplicateData() throws Exception{
+		// WITH
+		repo.deleteAll();
+		UUID userUuid = UUID.randomUUID();
+		UUID submissionUuid  = UUID.randomUUID();
+		
+		// add gar for user
+		SubmittedGarPersistedRecord record = SubmittedGarPersistedRecord.builder()
+                .submissionUuid(submissionUuid)
+                .garUuid(UUID.fromString("cfdcc109-d2d3-4c0c-812b-2b99dbe89d71"))
+                .userUuid(userUuid)
+                .status(SubmissionStatus.SUBMITTED)
+                .build();
+        repo.saveAndFlush(record);
+		
+		List<UUID> submissionUuids = new ArrayList<>();
+		// add same file uuid to request list
+		submissionUuids.add(submissionUuid);
+		submissionUuids.add(submissionUuid);
+		// WHEN
+		this.mockMvc
+		.perform(post(PATH_BULK).header(USERID_HEADER, userUuid)
+				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.content(mapper.writeValueAsString(submissionUuids)))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$").exists())
+		.andExpect(jsonPath("$").isArray())
+		.andExpect(jsonPath("$", hasSize(1)));
+	}
+	
 
     private String badRequestResponseContent(String json) throws Exception {
 

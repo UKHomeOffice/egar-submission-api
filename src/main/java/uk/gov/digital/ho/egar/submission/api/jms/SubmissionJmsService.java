@@ -40,6 +40,8 @@ public class SubmissionJmsService implements SubmissionService {
     public void processSubmission(String request) throws JMSException {
         QueuedGarSubmissionToCbpPojo submission = null;
         try {
+        	logger.info("Got JMS submission request");
+        	
             submission = objectMapper.readValue(request, QueuedGarSubmissionToCbpPojo.class);
 
             logger.debug(String.format("Processing JMS queue request with submission id '%s'", submission.getSubmissionUuid()));

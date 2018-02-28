@@ -2,8 +2,10 @@ package uk.gov.digital.ho.egar.submission.api.rest;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -33,6 +35,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import uk.gov.digital.ho.egar.shared.auth.api.token.AuthValues;
 import uk.gov.digital.ho.egar.shared.auth.api.token.UserValues;
 import uk.gov.digital.ho.egar.submission.api.GarSubmission;
 import uk.gov.digital.ho.egar.submission.api.RestConstants;
@@ -179,6 +182,42 @@ public class GarSubmissionController implements GarSubmission {
         return new ResponseEntity<Void>(responseHeaders, HttpStatus.SEE_OTHER);
 
     }
+    
+    //---------------------------------------------------------------------------------------------------------
+
+    /**
+     * A get endpoint that bulk retrieves a list of Summary details
+     */
+
+
+    @Override
+    @ApiOperation(value = "Bulk retrieve a list of Summary details.",
+    notes = "Retrieve a list of existing Summary details for a user from CBP")
+    @ApiResponses(value = {
+    		@ApiResponse(
+    				code = 200,
+    				message = "Succesful retrieval",
+    				response = GarSubmissionResponse[].class),
+    		@ApiResponse(
+    				code = 401,
+    				message = "Unauthrised")})
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping(path = RestConstants.PATH_BULK,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public GarSubmissionResponse[] bulkRetrieveGARs(@RequestHeader(AuthValues.USERID_HEADER) UUID uuidOfUser, 
+    												@RequestBody List<UUID> submissionUuids) {
+
+    	SubmittedGar[] persistedSubmissions =submissionService.getBulkSubmissions(uuidOfUser,submissionUuids);
+    	
+    	List<GarSubmissionResponse> response = Arrays.asList(persistedSubmissions)
+    										   .stream()
+    										   .map(skel -> createGarSubmissionResponse(skel))
+    										   .collect(Collectors.toList());   
+    	
+    	return response.toArray(new GarSubmissionResponse[persistedSubmissions.length]);
+    }
+    
 
     private GarSubmissionResponse createGarSubmissionResponse(SubmittedGar submittedGar) {
         GarSubmissionResponsePojo response = new GarSubmissionResponsePojo();

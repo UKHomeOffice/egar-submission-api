@@ -313,7 +313,7 @@
 	</distributionManagement>
 
 
-	<version>4.2.4</version>
+	<version>5.0.8</version>
 	<name>Submission API application</name>
 	<description>An example submission API application</description>
 </project>

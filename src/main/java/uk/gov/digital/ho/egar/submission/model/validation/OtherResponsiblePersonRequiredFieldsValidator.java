@@ -28,8 +28,8 @@ public class OtherResponsiblePersonRequiredFieldsValidator implements Constraint
         boolean isOk = true;
         //If the responsible person type is other then certain details are required
         if (details.getType() == ResponsiblePersonType.OTHER) {
-            if (StringUtils.isNullOrEmpty(details.getAddress()) ||
-                    StringUtils.isNullOrEmpty(details.getName()) ||
+        	// fix for EGAR-1542 removed address check - StringUtils.isNullOrEmpty(details.getAddress()) ||
+            if ( StringUtils.isNullOrEmpty(details.getName()) ||
                     StringUtils.isNullOrEmpty(details.getContactNumber())){
                 isOk = false;
             }

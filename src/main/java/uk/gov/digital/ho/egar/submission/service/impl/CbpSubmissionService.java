@@ -19,6 +19,7 @@ import uk.gov.digital.ho.egar.submission.client.jms.SubmissionExecutionService;
 import uk.gov.digital.ho.egar.submission.model.GarSubmissionRequest;
 import uk.gov.digital.ho.egar.submission.model.QueuedGarSubmissionToCbp;
 import uk.gov.digital.ho.egar.submission.model.SubmissionStatus;
+import uk.gov.digital.ho.egar.submission.model.SubmittedGar;
 import uk.gov.digital.ho.egar.submission.model.jms.QueuedGarCancellationToCbpPojo;
 import uk.gov.digital.ho.egar.submission.model.jms.QueuedGarSubmissionToCbpPojo;
 import uk.gov.digital.ho.egar.submission.model.jms.SubmittingUserPojo;
@@ -107,6 +108,16 @@ public class CbpSubmissionService implements SubmissionService {
 		executor.processCancellation(queuedCancellation);
 
 		return submittedGar.getSubmissionUuid();
+	}
+	
+	@Override
+	public SubmittedGar[] getBulkSubmissions(UUID uuidOfUser, List<UUID> submissionUuids) {
+		
+		List<SubmittedGarPersistedRecord> submissionsList = repository.findAllByUserUuidAndSubmissionUuidIn(uuidOfUser,submissionUuids);
+		SubmittedGar[] submissionArray = new SubmittedGar[submissionsList.size()];
+		submissionArray = submissionsList.toArray(submissionArray);
+		
+		return submissionArray;
 	}
 
 	

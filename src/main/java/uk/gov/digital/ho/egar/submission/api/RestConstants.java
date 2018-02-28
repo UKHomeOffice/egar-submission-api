@@ -12,5 +12,5 @@ public interface RestConstants {
 	String PATH_SUBMIT = "/";
 	String PATH_PREVIOUS_SUBMISSION = "submission_uuid";
 	String PATH_PREVIOUS_SUBMISSION_PATH = ServicePathConstants.ROOT_PATH_SEPERATOR +"{" + PATH_PREVIOUS_SUBMISSION + "}" + ServicePathConstants.ROOT_PATH_SEPERATOR;
-
+	String PATH_BULK = "/Summaries";
 }

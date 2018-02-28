@@ -83,12 +83,6 @@ spec:
                   key: awssqsseckey
           image: pipe.egarteam.co.uk/egar-submission-api:$SUBMISSION_API_VER
           name: submission-api
-          livenessProbe:
-            initialDelaySeconds: 90
-            periodSeconds: 40
-            httpGet:
-              path: /healthz
-              port: 8080
           resources: {}
         - args:
           - --discovery-url=http://auth.egarteam.co.uk/auth/realms/egar

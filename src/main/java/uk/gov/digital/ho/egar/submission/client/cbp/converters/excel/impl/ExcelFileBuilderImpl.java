@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +11,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -45,10 +43,10 @@ public class ExcelFileBuilderImpl implements ExcelFileBuilder {
 
 	@Autowired 
 	private AddLocationToExcel portExcel;
-	
+
 	@Autowired 
 	private AddAircraftToExcel aircraftExcel;
-	
+
 	@Autowired
 	private AddPeopleToExcel peopleExcel;
 
@@ -60,19 +58,20 @@ public class ExcelFileBuilderImpl implements ExcelFileBuilder {
 	}
 
 	public File convertPojoToExcel(QueuedGarSubmissionToCbp submission) throws SubmissionApiException, InvalidFormatException {
+		logger.info("Updating excel template with current submission.");
+		try {
+			XSSFWorkbook templateFile = getNewTemplateFile();
 
-			try {
-				XSSFWorkbook templateFile = getNewTemplateFile();
+			//Adding all of the gar information to the workbook
+			addGarDataToTempFile(templateFile, submission);
 
-				//Adding all of the gar information to the workbook
-				addGarDataToTempFile(templateFile, submission);
-
-				//Creates file object from the workbook
-				return createFile(submission.getGarUuid(), templateFile);
-			}catch (IOException exception){
-				logger.error("Unable to read or write submission excel template", exception);
-				throw new SubmissionTransformationException("Unable to read or write submission excel template.", exception);
-			}
+			//Creates file object from the workbook
+			return createFile(submission.getGarUuid(), templateFile);
+		}catch (IOException exception){
+			logger.error("Unable to read or write submission excel template", exception);
+			logger.info("Unable to read or write submission excel template IO Error");
+			throw new SubmissionTransformationException("Unable to read or write submission excel template.", exception);
+		}
 
 	}
 
@@ -117,7 +116,7 @@ public class ExcelFileBuilderImpl implements ExcelFileBuilder {
 		XSSFRow departureRow = garSheet.getRow(DEPARTURE_ROW_INDEX);
 		portExcel.addLocationToExcelRow(departureRow, locations.get(1));
 	}
-	
+
 
 	//Gets a new HSSFWorkbook from the filesystem.
 	private XSSFWorkbook getNewTemplateFile() throws IOException, InvalidFormatException {

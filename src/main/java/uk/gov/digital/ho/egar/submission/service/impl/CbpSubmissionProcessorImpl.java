@@ -48,11 +48,11 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 	@Override
 	public void processSubmissionRequests(QueuedGarSubmissionToCbp submission) throws IOException {
 
-		logger.debug(String.format("Processing submission request '%s'", submission.getSubmissionUuid()));
+		logger.info(String.format("Processing submission request '%s'", submission.getSubmissionUuid()));
 
 		if (submission.getSupportingFiles() == null || submission.getSupportingFiles().size() == 0) {
 			try {
-				logger.debug(String.format("Converting submission request '%s' to xml", submission.getSubmissionUuid()));
+				logger.info(String.format("Converting submission request '%s' to xml", submission.getSubmissionUuid()));
 
 				String submissionXml = convertRequestToXmlString(submission, submission.getSubmittingUser());
 				submitToCbpAndPersistResponse(submission.getSubmittingUser(), submissionXml, submission.getSubmissionUuid());
@@ -62,9 +62,10 @@ public class CbpSubmissionProcessorImpl implements CbpSubmissionProcessor {
 			}
 		}else {
 			try {
-				logger.debug(String.format("Converting submission request '%s' to excel", submission.getSubmissionUuid()));
+				logger.info(String.format("Converting submission request '%s' to excel", submission.getSubmissionUuid()));
 
 				ArrayOfFile arrayOfFile = excelGarMarshaller.convertPojoToExcel(submission);
+				logger.info(String.format("Added '%s' to submission as excel", submission.getSubmissionUuid()));
 				submitToCbpAndPersistResponse(submission.getSubmittingUser(), arrayOfFile, submission.getSubmissionUuid());
 			} catch (SubmissionApiException|InvalidFormatException e) {
 				logger.error(String.format("Submission '%s' failed to submit to CBP", submission.getSubmissionUuid()), e);

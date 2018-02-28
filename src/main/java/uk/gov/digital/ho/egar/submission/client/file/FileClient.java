@@ -9,6 +9,7 @@ import uk.gov.digital.ho.egar.submission.api.exceptions.UnsupportedClientExcepti
 import uk.gov.digital.ho.egar.submission.model.SupportingFilesSubmissionRequest;
 
 public interface FileClient {
+	 public static final String UTF_8 = "UTF-8";
 	/**
 	 * Retrieve file from client
 	 * @param supportingFile

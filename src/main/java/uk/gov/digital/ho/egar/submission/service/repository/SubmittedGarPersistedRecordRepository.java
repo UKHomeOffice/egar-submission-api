@@ -12,6 +12,10 @@ import uk.gov.digital.ho.egar.submission.service.repository.model.SubmittedGarPe
 
 @Transactional
 public interface SubmittedGarPersistedRecordRepository extends JpaRepository<SubmittedGarPersistedRecord, UUID>{
+	
 	List<SubmittedGarPersistedRecord> findByGarUuidAndUserUuidAndStatusIsIn(UUID garUuid, UUID userUuid, List<SubmissionStatus> statuses);
+	
 	SubmittedGarPersistedRecord findOneBySubmissionUuidAndUserUuid(UUID submissionUuid, UUID userUuid );
+	
+	List<SubmittedGarPersistedRecord> findAllByUserUuidAndSubmissionUuidIn(UUID uuidOfUser, List<UUID> submissionUuids);
 }

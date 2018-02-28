@@ -1,5 +1,6 @@
 package uk.gov.digital.ho.egar.submission.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import uk.gov.digital.ho.egar.shared.auth.api.token.UserValues;
@@ -15,4 +16,6 @@ public interface SubmissionService {
 	SubmittedGar getSubmittedGar(UUID uuidOfUser, UUID submissionUuid) throws DataNotFoundSubmissionApiException;
 
     UUID cancelSubmittedGar(UUID submissionUuid, final UserValues userValues) throws SubmissionApiException;
+
+	SubmittedGar[] getBulkSubmissions(final UUID uuidOfUser, final List<UUID> submissionUuids);
 }
